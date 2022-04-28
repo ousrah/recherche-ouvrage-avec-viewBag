@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebApplication5.EDITEUR>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMED)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ADRED)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CPED)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VILLEED)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TELED)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NOMED)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ADRED)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CPED)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.VILLEED)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TELED)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.NOMED }) |
+        @Html.ActionLink("Details", "Details", new { id = item.NOMED }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.NOMED })
+    </td>
+</tr>
+}
+
+</table>

@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <input type="TEXT" name="txtRecherche" id="txtRecherche" value="" />
-<input type="submit" name="btnRecherche" id="btnRecherche" value="Chercher" />
+<input type="button" name="btnRecherche" id="btnRecherche" value="Chercher" />
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -75,7 +75,6 @@
               
                 success: function(response) {
                     $("#lstEditeurs").html(response);
-
                 }
 
             });
