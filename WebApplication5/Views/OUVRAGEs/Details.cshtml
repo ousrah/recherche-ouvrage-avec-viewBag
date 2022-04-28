@@ -1,0 +1,51 @@
+﻿@model WebApplication5.OUVRAGE
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OUVRAGE</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NOMOUVR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOMOUVR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ANNEEPARU)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ANNEEPARU)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLASSIFICATION.LIBRUB)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLASSIFICATION.LIBRUB)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EDITEUR.ADRED)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EDITEUR.ADRED)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NUMOUVR }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

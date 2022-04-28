@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a758f19121d346a39c9ea0e62be569ed" Name="Diagram1">
+        <EntityTypeShape EntityType="librairieModel.C__MigrationHistory" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.CATALOGUE" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.CLASSIFICATION" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.DEPOT" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.ECRIVAIN" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.EDITEUR" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.OUVRAGE" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.STOCKER" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.TARIFER" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.test" Width="1.5" PointX="7.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="librairieModel.user" Width="1.5" PointX="7.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="librairieModel.FK_TARIFER_CATALOGUE" ManuallyRouted="false" />
+        <AssociationConnector Association="librairieModel.FK_OUVRAGE_CLASSIFICATION" ManuallyRouted="false" />
+        <AssociationConnector Association="librairieModel.FK_STOCKER_DEPOT" ManuallyRouted="false" />
+        <AssociationConnector Association="librairieModel.FK_OUVRAGE_EDITEUR" ManuallyRouted="false" />
+        <AssociationConnector Association="librairieModel.FK_STOCKER_OUVRAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="librairieModel.FK_TARIFER_OUVRAGE" ManuallyRouted="false" />
+        <AssociationConnector Association="librairieModel.ECRIRE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

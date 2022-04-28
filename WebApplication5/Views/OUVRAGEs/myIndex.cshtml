@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebApplication5.OUVRAGE>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Index</h2>
+
+<form asp-controller="OUVRAGES" asp-action="index" method="post">
+
+
+    <select name="classification" id="classification">
+        <option value="">All</option>
+        @foreach (CLASSIFICATION c in ViewBag.classification)
+        {
+            <option @(Html.DisplayFor(m => c.NUMRUB).ToString() == ViewBag.selectedClassification ? "selected" : "")
+                    value="@Html.DisplayFor(m => c.NUMRUB)">
+                @Html.DisplayFor(m => c.LIBRUB)
+            </option>
+
+        }
+    </select>
+    <input type="text" name="recherche" id="recherche" value="@ViewBag.chercher" />
+    <input type="submit" name="btnChercher" value="Chercher" />
+
+</form>
+
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Titre
+        </th>
+        <th>
+           Année
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CLASSIFICATION.LIBRUB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EDITEUR.ADRED)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var i in Model) {
+    <tr>
+        <td>
+          
+            @Html.DisplayFor(m => i.NOMOUVR)
+        </td>
+        <td>
+            @Html.DisplayFor(m => i.ANNEEPARU)
+        </td>
+        <td>
+            @Html.DisplayFor(m => i.CLASSIFICATION.LIBRUB)
+        </td>
+        <td>
+            @Html.DisplayFor(m => i.EDITEUR.ADRED)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", "OUVRAGES" ,  new { id = i.NUMOUVR },new { @class = "" }) |
+            @Html.ActionLink("Details", "Details", new { id=i.NUMOUVR }) |
+            @Html.ActionLink("Delete", "Delete",  new { id=i.NUMOUVR })
+        </td>
+    </tr>
+}
+
+</table>

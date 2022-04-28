@@ -1,0 +1,672 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="librairieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CATALOGUE">
+          <Key>
+            <PropertyRef Name="DATEDEB" />
+          </Key>
+          <Property Name="DATEDEB" Type="date" Nullable="false" />
+          <Property Name="DATEFIN" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="NUMRUB" />
+          </Key>
+          <Property Name="NUMRUB" Type="int" Nullable="false" />
+          <Property Name="LIBRUB" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DEPOT">
+          <Key>
+            <PropertyRef Name="NUMDEP" />
+          </Key>
+          <Property Name="NUMDEP" Type="int" Nullable="false" />
+          <Property Name="NOMDEP" Type="varchar" MaxLength="30" />
+          <Property Name="ADRDEP" Type="varchar" MaxLength="40" />
+          <Property Name="CPDEP" Type="varchar" MaxLength="5" />
+          <Property Name="VILLEDEP" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="ECRIRE">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+            <PropertyRef Name="NUMECR" />
+          </Key>
+          <Property Name="NUMOUVR" Type="int" Nullable="false" />
+          <Property Name="NUMECR" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ECRIVAIN">
+          <Key>
+            <PropertyRef Name="NUMECR" />
+          </Key>
+          <Property Name="NUMECR" Type="int" Nullable="false" />
+          <Property Name="PRENOMECR" Type="varchar" MaxLength="30" />
+          <Property Name="NOMECR" Type="varchar" MaxLength="30" />
+          <Property Name="PAYSECR" Type="varchar" MaxLength="30" />
+          <Property Name="LANGUECR" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="EDITEUR">
+          <Key>
+            <PropertyRef Name="NOMED" />
+          </Key>
+          <Property Name="NOMED" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ADRED" Type="varchar" MaxLength="40" />
+          <Property Name="CPED" Type="nvarchar" MaxLength="5" />
+          <Property Name="VILLEED" Type="nvarchar" MaxLength="30" />
+          <Property Name="TELED" Type="nvarchar" MaxLength="16" />
+        </EntityType>
+        <EntityType Name="OUVRAGE">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+          </Key>
+          <Property Name="NUMOUVR" Type="int" Nullable="false" />
+          <Property Name="NOMOUVR" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="ANNEEPARU" Type="smallint" />
+          <Property Name="NUMRUB" Type="int" />
+          <Property Name="NOMED" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="STOCKER">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+            <PropertyRef Name="NUMDEP" />
+          </Key>
+          <Property Name="NUMOUVR" Type="int" Nullable="false" />
+          <Property Name="NUMDEP" Type="int" Nullable="false" />
+          <Property Name="QTESTOCK" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TARIFER">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+            <PropertyRef Name="DATEDEB" />
+          </Key>
+          <Property Name="NUMOUVR" Type="int" Nullable="false" />
+          <Property Name="DATEDEB" Type="date" Nullable="false" />
+          <Property Name="PRIXVENTE" Type="float" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="hash" Type="varchar" MaxLength="255" />
+          <Property Name="dateExpiration" Type="datetime" />
+          <Property Name="valide" Type="bit" />
+        </EntityType>
+        <Association Name="FK_ECRIRE_ECRIVAIN">
+          <End Role="ECRIVAIN" Type="Self.ECRIVAIN" Multiplicity="1" />
+          <End Role="ECRIRE" Type="Self.ECRIRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ECRIVAIN">
+              <PropertyRef Name="NUMECR" />
+            </Principal>
+            <Dependent Role="ECRIRE">
+              <PropertyRef Name="NUMECR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ECRIRE_OUVRAGE">
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="1" />
+          <End Role="ECRIRE" Type="Self.ECRIRE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OUVRAGE">
+              <PropertyRef Name="NUMOUVR" />
+            </Principal>
+            <Dependent Role="ECRIRE">
+              <PropertyRef Name="NUMOUVR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OUVRAGE_CLASSIFICATION">
+          <End Role="CLASSIFICATION" Type="Self.CLASSIFICATION" Multiplicity="0..1" />
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASSIFICATION">
+              <PropertyRef Name="NUMRUB" />
+            </Principal>
+            <Dependent Role="OUVRAGE">
+              <PropertyRef Name="NUMRUB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OUVRAGE_EDITEUR">
+          <End Role="EDITEUR" Type="Self.EDITEUR" Multiplicity="0..1" />
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EDITEUR">
+              <PropertyRef Name="NOMED" />
+            </Principal>
+            <Dependent Role="OUVRAGE">
+              <PropertyRef Name="NOMED" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCKER_DEPOT">
+          <End Role="DEPOT" Type="Self.DEPOT" Multiplicity="1" />
+          <End Role="STOCKER" Type="Self.STOCKER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPOT">
+              <PropertyRef Name="NUMDEP" />
+            </Principal>
+            <Dependent Role="STOCKER">
+              <PropertyRef Name="NUMDEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCKER_OUVRAGE">
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="1" />
+          <End Role="STOCKER" Type="Self.STOCKER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OUVRAGE">
+              <PropertyRef Name="NUMOUVR" />
+            </Principal>
+            <Dependent Role="STOCKER">
+              <PropertyRef Name="NUMOUVR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TARIFER_CATALOGUE">
+          <End Role="CATALOGUE" Type="Self.CATALOGUE" Multiplicity="1" />
+          <End Role="TARIFER" Type="Self.TARIFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATALOGUE">
+              <PropertyRef Name="DATEDEB" />
+            </Principal>
+            <Dependent Role="TARIFER">
+              <PropertyRef Name="DATEDEB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TARIFER_OUVRAGE">
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="1" />
+          <End Role="TARIFER" Type="Self.TARIFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OUVRAGE">
+              <PropertyRef Name="NUMOUVR" />
+            </Principal>
+            <Dependent Role="TARIFER">
+              <PropertyRef Name="NUMOUVR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="librairieModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CATALOGUE" EntityType="Self.CATALOGUE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLASSIFICATION" EntityType="Self.CLASSIFICATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEPOT" EntityType="Self.DEPOT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ECRIRE" EntityType="Self.ECRIRE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ECRIVAIN" EntityType="Self.ECRIVAIN" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EDITEUR" EntityType="Self.EDITEUR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OUVRAGE" EntityType="Self.OUVRAGE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STOCKER" EntityType="Self.STOCKER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TARIFER" EntityType="Self.TARIFER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="test" EntityType="Self.test" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ECRIRE_ECRIVAIN" Association="Self.FK_ECRIRE_ECRIVAIN">
+            <End Role="ECRIVAIN" EntitySet="ECRIVAIN" />
+            <End Role="ECRIRE" EntitySet="ECRIRE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ECRIRE_OUVRAGE" Association="Self.FK_ECRIRE_OUVRAGE">
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+            <End Role="ECRIRE" EntitySet="ECRIRE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OUVRAGE_CLASSIFICATION" Association="Self.FK_OUVRAGE_CLASSIFICATION">
+            <End Role="CLASSIFICATION" EntitySet="CLASSIFICATION" />
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OUVRAGE_EDITEUR" Association="Self.FK_OUVRAGE_EDITEUR">
+            <End Role="EDITEUR" EntitySet="EDITEUR" />
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCKER_DEPOT" Association="Self.FK_STOCKER_DEPOT">
+            <End Role="DEPOT" EntitySet="DEPOT" />
+            <End Role="STOCKER" EntitySet="STOCKER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCKER_OUVRAGE" Association="Self.FK_STOCKER_OUVRAGE">
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+            <End Role="STOCKER" EntitySet="STOCKER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TARIFER_CATALOGUE" Association="Self.FK_TARIFER_CATALOGUE">
+            <End Role="CATALOGUE" EntitySet="CATALOGUE" />
+            <End Role="TARIFER" EntitySet="TARIFER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TARIFER_OUVRAGE" Association="Self.FK_TARIFER_OUVRAGE">
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+            <End Role="TARIFER" EntitySet="TARIFER" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="librairieModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CATALOGUE">
+          <Key>
+            <PropertyRef Name="DATEDEB" />
+          </Key>
+          <Property Name="DATEDEB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DATEFIN" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TARIFER" Relationship="Self.FK_TARIFER_CATALOGUE" FromRole="CATALOGUE" ToRole="TARIFER" />
+        </EntityType>
+        <EntityType Name="CLASSIFICATION">
+          <Key>
+            <PropertyRef Name="NUMRUB" />
+          </Key>
+          <Property Name="NUMRUB" Type="Int32" Nullable="false" />
+          <Property Name="LIBRUB" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OUVRAGE" Relationship="Self.FK_OUVRAGE_CLASSIFICATION" FromRole="CLASSIFICATION" ToRole="OUVRAGE" />
+        </EntityType>
+        <EntityType Name="DEPOT">
+          <Key>
+            <PropertyRef Name="NUMDEP" />
+          </Key>
+          <Property Name="NUMDEP" Type="Int32" Nullable="false" />
+          <Property Name="NOMDEP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ADRDEP" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CPDEP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="VILLEDEP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="STOCKER" Relationship="Self.FK_STOCKER_DEPOT" FromRole="DEPOT" ToRole="STOCKER" />
+        </EntityType>
+        <EntityType Name="ECRIVAIN">
+          <Key>
+            <PropertyRef Name="NUMECR" />
+          </Key>
+          <Property Name="NUMECR" Type="Int32" Nullable="false" />
+          <Property Name="PRENOMECR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NOMECR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="PAYSECR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="LANGUECR" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OUVRAGE" Relationship="Self.ECRIRE" FromRole="ECRIVAIN" ToRole="OUVRAGE" />
+        </EntityType>
+        <EntityType Name="EDITEUR">
+          <Key>
+            <PropertyRef Name="NOMED" />
+          </Key>
+          <Property Name="NOMED" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ADRED" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="CPED" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="VILLEED" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="TELED" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OUVRAGE" Relationship="Self.FK_OUVRAGE_EDITEUR" FromRole="EDITEUR" ToRole="OUVRAGE" />
+        </EntityType>
+        <EntityType Name="OUVRAGE">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+          </Key>
+          <Property Name="NUMOUVR" Type="Int32" Nullable="false" />
+          <Property Name="NOMOUVR" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ANNEEPARU" Type="Int16" />
+          <Property Name="NUMRUB" Type="Int32" />
+          <Property Name="NOMED" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLASSIFICATION" Relationship="Self.FK_OUVRAGE_CLASSIFICATION" FromRole="OUVRAGE" ToRole="CLASSIFICATION" />
+          <NavigationProperty Name="EDITEUR" Relationship="Self.FK_OUVRAGE_EDITEUR" FromRole="OUVRAGE" ToRole="EDITEUR" />
+          <NavigationProperty Name="STOCKER" Relationship="Self.FK_STOCKER_OUVRAGE" FromRole="OUVRAGE" ToRole="STOCKER" />
+          <NavigationProperty Name="TARIFER" Relationship="Self.FK_TARIFER_OUVRAGE" FromRole="OUVRAGE" ToRole="TARIFER" />
+          <NavigationProperty Name="ECRIVAIN" Relationship="Self.ECRIRE" FromRole="OUVRAGE" ToRole="ECRIVAIN" />
+        </EntityType>
+        <EntityType Name="STOCKER">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+            <PropertyRef Name="NUMDEP" />
+          </Key>
+          <Property Name="NUMOUVR" Type="Int32" Nullable="false" />
+          <Property Name="NUMDEP" Type="Int32" Nullable="false" />
+          <Property Name="QTESTOCK" Type="Int32" />
+          <NavigationProperty Name="DEPOT" Relationship="Self.FK_STOCKER_DEPOT" FromRole="STOCKER" ToRole="DEPOT" />
+          <NavigationProperty Name="OUVRAGE" Relationship="Self.FK_STOCKER_OUVRAGE" FromRole="STOCKER" ToRole="OUVRAGE" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TARIFER">
+          <Key>
+            <PropertyRef Name="NUMOUVR" />
+            <PropertyRef Name="DATEDEB" />
+          </Key>
+          <Property Name="NUMOUVR" Type="Int32" Nullable="false" />
+          <Property Name="DATEDEB" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PRIXVENTE" Type="Double" />
+          <NavigationProperty Name="CATALOGUE" Relationship="Self.FK_TARIFER_CATALOGUE" FromRole="TARIFER" ToRole="CATALOGUE" />
+          <NavigationProperty Name="OUVRAGE" Relationship="Self.FK_TARIFER_OUVRAGE" FromRole="TARIFER" ToRole="OUVRAGE" />
+        </EntityType>
+        <EntityType Name="test">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="email" />
+          </Key>
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hash" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="dateExpiration" Type="DateTime" Precision="3" />
+          <Property Name="valide" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_TARIFER_CATALOGUE">
+          <End Role="CATALOGUE" Type="Self.CATALOGUE" Multiplicity="1" />
+          <End Role="TARIFER" Type="Self.TARIFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATALOGUE">
+              <PropertyRef Name="DATEDEB" />
+            </Principal>
+            <Dependent Role="TARIFER">
+              <PropertyRef Name="DATEDEB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OUVRAGE_CLASSIFICATION">
+          <End Role="CLASSIFICATION" Type="Self.CLASSIFICATION" Multiplicity="0..1" />
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLASSIFICATION">
+              <PropertyRef Name="NUMRUB" />
+            </Principal>
+            <Dependent Role="OUVRAGE">
+              <PropertyRef Name="NUMRUB" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCKER_DEPOT">
+          <End Role="DEPOT" Type="Self.DEPOT" Multiplicity="1" />
+          <End Role="STOCKER" Type="Self.STOCKER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEPOT">
+              <PropertyRef Name="NUMDEP" />
+            </Principal>
+            <Dependent Role="STOCKER">
+              <PropertyRef Name="NUMDEP" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OUVRAGE_EDITEUR">
+          <End Role="EDITEUR" Type="Self.EDITEUR" Multiplicity="0..1" />
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EDITEUR">
+              <PropertyRef Name="NOMED" />
+            </Principal>
+            <Dependent Role="OUVRAGE">
+              <PropertyRef Name="NOMED" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_STOCKER_OUVRAGE">
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="1" />
+          <End Role="STOCKER" Type="Self.STOCKER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OUVRAGE">
+              <PropertyRef Name="NUMOUVR" />
+            </Principal>
+            <Dependent Role="STOCKER">
+              <PropertyRef Name="NUMOUVR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TARIFER_OUVRAGE">
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="1" />
+          <End Role="TARIFER" Type="Self.TARIFER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OUVRAGE">
+              <PropertyRef Name="NUMOUVR" />
+            </Principal>
+            <Dependent Role="TARIFER">
+              <PropertyRef Name="NUMOUVR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ECRIRE">
+          <End Role="ECRIVAIN" Type="Self.ECRIVAIN" Multiplicity="*" />
+          <End Role="OUVRAGE" Type="Self.OUVRAGE" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="librairieEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="CATALOGUE" EntityType="Self.CATALOGUE" />
+          <EntitySet Name="CLASSIFICATION" EntityType="Self.CLASSIFICATION" />
+          <EntitySet Name="DEPOT" EntityType="Self.DEPOT" />
+          <EntitySet Name="ECRIVAIN" EntityType="Self.ECRIVAIN" />
+          <EntitySet Name="EDITEUR" EntityType="Self.EDITEUR" />
+          <EntitySet Name="OUVRAGE" EntityType="Self.OUVRAGE" />
+          <EntitySet Name="STOCKER" EntityType="Self.STOCKER" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TARIFER" EntityType="Self.TARIFER" />
+          <EntitySet Name="test" EntityType="Self.test" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_TARIFER_CATALOGUE" Association="Self.FK_TARIFER_CATALOGUE">
+            <End Role="CATALOGUE" EntitySet="CATALOGUE" />
+            <End Role="TARIFER" EntitySet="TARIFER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OUVRAGE_CLASSIFICATION" Association="Self.FK_OUVRAGE_CLASSIFICATION">
+            <End Role="CLASSIFICATION" EntitySet="CLASSIFICATION" />
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCKER_DEPOT" Association="Self.FK_STOCKER_DEPOT">
+            <End Role="DEPOT" EntitySet="DEPOT" />
+            <End Role="STOCKER" EntitySet="STOCKER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OUVRAGE_EDITEUR" Association="Self.FK_OUVRAGE_EDITEUR">
+            <End Role="EDITEUR" EntitySet="EDITEUR" />
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_STOCKER_OUVRAGE" Association="Self.FK_STOCKER_OUVRAGE">
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+            <End Role="STOCKER" EntitySet="STOCKER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TARIFER_OUVRAGE" Association="Self.FK_TARIFER_OUVRAGE">
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+            <End Role="TARIFER" EntitySet="TARIFER" />
+          </AssociationSet>
+          <AssociationSet Name="ECRIRE" Association="Self.ECRIRE">
+            <End Role="ECRIVAIN" EntitySet="ECRIVAIN" />
+            <End Role="OUVRAGE" EntitySet="OUVRAGE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="librairieModelStoreContainer" CdmEntityContainer="librairieEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="librairieModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CATALOGUE">
+            <EntityTypeMapping TypeName="librairieModel.CATALOGUE">
+              <MappingFragment StoreEntitySet="CATALOGUE">
+                <ScalarProperty Name="DATEDEB" ColumnName="DATEDEB" />
+                <ScalarProperty Name="DATEFIN" ColumnName="DATEFIN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLASSIFICATION">
+            <EntityTypeMapping TypeName="librairieModel.CLASSIFICATION">
+              <MappingFragment StoreEntitySet="CLASSIFICATION">
+                <ScalarProperty Name="NUMRUB" ColumnName="NUMRUB" />
+                <ScalarProperty Name="LIBRUB" ColumnName="LIBRUB" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEPOT">
+            <EntityTypeMapping TypeName="librairieModel.DEPOT">
+              <MappingFragment StoreEntitySet="DEPOT">
+                <ScalarProperty Name="NUMDEP" ColumnName="NUMDEP" />
+                <ScalarProperty Name="NOMDEP" ColumnName="NOMDEP" />
+                <ScalarProperty Name="ADRDEP" ColumnName="ADRDEP" />
+                <ScalarProperty Name="CPDEP" ColumnName="CPDEP" />
+                <ScalarProperty Name="VILLEDEP" ColumnName="VILLEDEP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ECRIVAIN">
+            <EntityTypeMapping TypeName="librairieModel.ECRIVAIN">
+              <MappingFragment StoreEntitySet="ECRIVAIN">
+                <ScalarProperty Name="NUMECR" ColumnName="NUMECR" />
+                <ScalarProperty Name="PRENOMECR" ColumnName="PRENOMECR" />
+                <ScalarProperty Name="NOMECR" ColumnName="NOMECR" />
+                <ScalarProperty Name="PAYSECR" ColumnName="PAYSECR" />
+                <ScalarProperty Name="LANGUECR" ColumnName="LANGUECR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EDITEUR">
+            <EntityTypeMapping TypeName="librairieModel.EDITEUR">
+              <MappingFragment StoreEntitySet="EDITEUR">
+                <ScalarProperty Name="NOMED" ColumnName="NOMED" />
+                <ScalarProperty Name="ADRED" ColumnName="ADRED" />
+                <ScalarProperty Name="CPED" ColumnName="CPED" />
+                <ScalarProperty Name="VILLEED" ColumnName="VILLEED" />
+                <ScalarProperty Name="TELED" ColumnName="TELED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OUVRAGE">
+            <EntityTypeMapping TypeName="librairieModel.OUVRAGE">
+              <MappingFragment StoreEntitySet="OUVRAGE">
+                <ScalarProperty Name="NUMOUVR" ColumnName="NUMOUVR" />
+                <ScalarProperty Name="NOMOUVR" ColumnName="NOMOUVR" />
+                <ScalarProperty Name="ANNEEPARU" ColumnName="ANNEEPARU" />
+                <ScalarProperty Name="NUMRUB" ColumnName="NUMRUB" />
+                <ScalarProperty Name="NOMED" ColumnName="NOMED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STOCKER">
+            <EntityTypeMapping TypeName="librairieModel.STOCKER">
+              <MappingFragment StoreEntitySet="STOCKER">
+                <ScalarProperty Name="NUMOUVR" ColumnName="NUMOUVR" />
+                <ScalarProperty Name="NUMDEP" ColumnName="NUMDEP" />
+                <ScalarProperty Name="QTESTOCK" ColumnName="QTESTOCK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="librairieModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TARIFER">
+            <EntityTypeMapping TypeName="librairieModel.TARIFER">
+              <MappingFragment StoreEntitySet="TARIFER">
+                <ScalarProperty Name="NUMOUVR" ColumnName="NUMOUVR" />
+                <ScalarProperty Name="DATEDEB" ColumnName="DATEDEB" />
+                <ScalarProperty Name="PRIXVENTE" ColumnName="PRIXVENTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="test">
+            <EntityTypeMapping TypeName="librairieModel.test">
+              <MappingFragment StoreEntitySet="test">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="librairieModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="hash" ColumnName="hash" />
+                <ScalarProperty Name="dateExpiration" ColumnName="dateExpiration" />
+                <ScalarProperty Name="valide" ColumnName="valide" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ECRIRE" TypeName="librairieModel.ECRIRE" StoreEntitySet="ECRIRE">
+            <EndProperty Name="ECRIVAIN">
+              <ScalarProperty Name="NUMECR" ColumnName="NUMECR" />
+            </EndProperty>
+            <EndProperty Name="OUVRAGE">
+              <ScalarProperty Name="NUMOUVR" ColumnName="NUMOUVR" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,51 @@
+﻿@model WebApplication5.EDITEUR
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>EDITEUR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ADRED)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ADRED)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CPED)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CPED)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VILLEED)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VILLEED)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TELED)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TELED)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NOMED }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

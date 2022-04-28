@@ -1,0 +1,86 @@
+﻿@model IEnumerable<WebApplication5.EDITEUR>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<input type="TEXT" name="txtRecherche" id="txtRecherche" value="" />
+<input type="submit" name="btnRecherche" id="btnRecherche" value="Chercher" />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div id="lstEditeurs">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NOMED)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADRED)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CPED)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VILLEED)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TELED)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMED)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ADRED)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CPED)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VILLEED)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TELED)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.NOMED }) |
+            @Html.ActionLink("Details", "Details", new { id = item.NOMED }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.NOMED })
+        </td>
+    </tr>
+        }
+
+    </table>
+</div>
+@section Scripts {
+
+    <script type = "text/javascript" >
+    $("#btnRecherche").click(function() {
+        Data = "mot=" + $("#txtRecherche").val();
+     
+            $.ajax({
+                type: "POST",
+                url: "/Editeurs/getListe",
+                data: Data,
+              
+                success: function(response) {
+                    $("#lstEditeurs").html(response);
+
+                }
+
+            });
+     });
+   </script>
+
+
+}
