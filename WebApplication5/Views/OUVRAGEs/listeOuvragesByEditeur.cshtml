@@ -1,0 +1,21 @@
+﻿@model IEnumerable<WebApplication5.OUVRAGE>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMOUVR)
+        </th>
+     
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOMOUVR)
+        </td>
+       
+    </tr>
+}
+
+</table>

@@ -24,6 +24,17 @@ namespace WebApplication5.Controllers
             var oUVRAGE = db.OUVRAGE.Include(o => o.CLASSIFICATION).Include(o => o.EDITEUR);
             return View("~/Views/Ouvrages/myIndex.cshtml", oUVRAGE.ToList());
         }
+
+
+
+        public ActionResult getListeByEditeur(string nomed)
+        {
+            var oUVRAGE = db.OUVRAGE.Where(o => o.NOMED.Equals(nomed));
+
+            return PartialView("~/Views/Ouvrages/listeOuvragesByEditeur.cshtml", oUVRAGE.ToList());
+        }
+
+
         [HttpPost]
         public ActionResult Index(string recherche, string classification)
         {

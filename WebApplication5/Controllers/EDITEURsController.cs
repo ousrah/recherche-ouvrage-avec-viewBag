@@ -17,7 +17,7 @@ namespace WebApplication5.Controllers
         public ActionResult getListe(string mot)
         {
             var editeurs = db.EDITEUR.Where(e=>e.NOMED.Contains(mot)).ToList();
-            return PartialView("~/Views/Editeurs/ListeEditeurs2.cshtml", editeurs);
+            return PartialView("~/Views/Editeurs/LstEditeurs.cshtml", editeurs);
         }
 
 

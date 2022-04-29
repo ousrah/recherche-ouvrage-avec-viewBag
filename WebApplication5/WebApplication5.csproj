@@ -251,7 +251,7 @@
     <Content Include="Views\EDITEURs\Edit.cshtml" />
     <Content Include="Views\EDITEURs\Index.cshtml" />
     <Content Include="Views\EDITEURs\lstEditeurs.cshtml" />
-    <Content Include="Views\EDITEURs\ListeEditeurs2.cshtml" />
+    <Content Include="Views\OUVRAGEs\listeOuvragesByEditeur.cshtml" />
     <None Include="Views\OUVRAGEs\myIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
